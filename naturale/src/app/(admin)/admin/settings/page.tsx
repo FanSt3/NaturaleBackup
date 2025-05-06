@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,16 +18,30 @@ import {
   Bell, 
   Phone, 
   Save,
+  AlertTriangle,
 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function SettingsPage() {
+  const { user } = useAuth();
   // User profile state
   const [profile, setProfile] = useState({
-    name: "Dr. Ana Petrović",
-    email: "ana@naturale.rs",
+    name: "",
+    email: "",
     phone: "+381 65 123 4567",
     avatarUrl: "",
   });
+
+  // Set user data when it's loaded
+  useEffect(() => {
+    if (user) {
+      setProfile({
+        ...profile,
+        name: user.name,
+        email: user.email,
+      });
+    }
+  }, [user]);
   
   // Password state
   const [password, setPassword] = useState({
@@ -34,6 +49,9 @@ export default function SettingsPage() {
     new: "",
     confirm: "",
   });
+
+  const [firstLogin, setFirstLogin] = useState(false);
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
   
   // Notifications state
   const [notifications, setNotifications] = useState({
@@ -42,6 +60,13 @@ export default function SettingsPage() {
     marketing: true,
     updates: true,
   });
+
+  // Check if this is the first login
+  useEffect(() => {
+    if (user && user.firstLogin) {
+      setFirstLogin(true);
+    }
+  }, [user]);
   
   // Handle profile form submit
   const handleProfileSubmit = (e: React.FormEvent) => {
@@ -51,7 +76,7 @@ export default function SettingsPage() {
   };
   
   // Handle password form submit
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password.new !== password.confirm) {
@@ -63,10 +88,39 @@ export default function SettingsPage() {
       toast.error("Nova lozinka mora imati najmanje 8 karaktera");
       return;
     }
+
+    setIsChangingPassword(true);
     
-    // In a real app, you'd send an API request to update the password
-    toast.success("Lozinka je uspešno promenjena");
-    setPassword({ current: "", new: "", confirm: "" });
+    try {
+      const response = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentPassword: password.current,
+          newPassword: password.new,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to change password');
+      }
+
+      toast.success("Lozinka je uspešno promenjena");
+      setPassword({ current: "", new: "", confirm: "" });
+      setFirstLogin(false);
+    } catch (error) {
+      console.error('Error changing password:', error);
+      let errorMessage = 'Greška prilikom promene lozinke';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
+    } finally {
+      setIsChangingPassword(false);
+    }
   };
   
   // Handle notifications form submit
@@ -80,7 +134,7 @@ export default function SettingsPage() {
     <div>
       <h1 className="text-2xl md:text-3xl font-bold mb-8">Podešavanja</h1>
       
-      <Tabs defaultValue="profile" className="space-y-6">
+      <Tabs defaultValue={firstLogin ? "password" : "profile"} className="space-y-6">
         <TabsList className="grid w-full grid-cols-3 max-w-md">
           <TabsTrigger value="profile">Profil</TabsTrigger>
           <TabsTrigger value="password">Lozinka</TabsTrigger>
@@ -178,6 +232,16 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
+              {firstLogin && (
+                <Alert className="mb-6 bg-amber-50 text-amber-800 border-amber-300">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTitle>Ovo je vaše prvo prijavljivanje</AlertTitle>
+                  <AlertDescription>
+                    Iz bezbednosnih razloga, molimo vas da promenite inicijalnu lozinku pre korišćenja sistema.
+                  </AlertDescription>
+                </Alert>
+              )}
+
               <form onSubmit={handlePasswordSubmit} className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-2">
@@ -229,9 +293,13 @@ export default function SettingsPage() {
                 </div>
                 
                 <div className="flex justify-end">
-                  <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700">
+                  <Button 
+                    type="submit" 
+                    className="bg-emerald-600 hover:bg-emerald-700"
+                    disabled={isChangingPassword}
+                  >
                     <Save className="mr-2 h-4 w-4" />
-                    Promeni lozinku
+                    {isChangingPassword ? "Menjanje lozinke..." : "Promeni lozinku"}
                   </Button>
                 </div>
               </form>

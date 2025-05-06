@@ -1154,6 +1154,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     password: string | null
+    firstLogin: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1163,6 +1164,7 @@ export namespace Prisma {
     name: string | null
     email: string | null
     password: string | null
+    firstLogin: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1172,6 +1174,7 @@ export namespace Prisma {
     name: number
     email: number
     password: number
+    firstLogin: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1183,6 +1186,7 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    firstLogin?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1192,6 +1196,7 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    firstLogin?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1201,6 +1206,7 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    firstLogin?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1283,6 +1289,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1309,6 +1316,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    firstLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     blogs?: boolean | User$blogsArgs<ExtArgs>
@@ -1321,6 +1329,7 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    firstLogin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
@@ -1343,6 +1352,7 @@ export namespace Prisma {
       name: string
       email: string
       password: string
+      firstLogin: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1730,6 +1740,7 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly firstLogin: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -4804,6 +4815,7 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     password: 'password',
+    firstLogin: 'firstLogin',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4880,16 +4892,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
+   * Reference to a field of type 'Boolean'
    */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'DateTime'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
 
 
@@ -4911,6 +4923,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    firstLogin?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     blogs?: BlogListRelationFilter
@@ -4922,6 +4935,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    firstLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     blogs?: BlogOrderByRelationAggregateInput
@@ -4936,6 +4950,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    firstLogin?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     blogs?: BlogListRelationFilter
@@ -4947,6 +4962,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    firstLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4962,6 +4978,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    firstLogin?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -5168,6 +5185,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     blogs?: BlogCreateNestedManyWithoutAuthorInput
@@ -5179,6 +5197,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     blogs?: BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -5190,6 +5209,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     blogs?: BlogUpdateManyWithoutAuthorNestedInput
@@ -5201,6 +5221,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     blogs?: BlogUncheckedUpdateManyWithoutAuthorNestedInput
@@ -5212,6 +5233,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5221,6 +5243,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5423,6 +5446,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -5459,6 +5487,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    firstLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5468,6 +5497,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    firstLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5477,6 +5507,7 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    firstLogin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5496,6 +5527,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5578,11 +5617,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type UserRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -5616,14 +5650,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     authorId?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ActivityCountOrderByAggregateInput = {
@@ -5685,6 +5711,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -5753,10 +5783,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type UserUpdateOneRequiredWithoutBlogsNestedInput = {
     create?: XOR<UserCreateWithoutBlogsInput, UserUncheckedCreateWithoutBlogsInput>
     connectOrCreate?: UserCreateOrConnectWithoutBlogsInput
@@ -5791,6 +5817,11 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -5830,6 +5861,14 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5886,19 +5925,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type BlogCreateWithoutAuthorInput = {
@@ -6013,6 +6039,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     activities?: ActivityCreateNestedManyWithoutAuthorInput
@@ -6023,6 +6050,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     activities?: ActivityUncheckedCreateNestedManyWithoutAuthorInput
@@ -6049,6 +6077,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     activities?: ActivityUpdateManyWithoutAuthorNestedInput
@@ -6059,6 +6088,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     activities?: ActivityUncheckedUpdateManyWithoutAuthorNestedInput
@@ -6069,6 +6099,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     blogs?: BlogCreateNestedManyWithoutAuthorInput
@@ -6079,6 +6110,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
+    firstLogin?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     blogs?: BlogUncheckedCreateNestedManyWithoutAuthorInput
@@ -6105,6 +6137,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     blogs?: BlogUpdateManyWithoutAuthorNestedInput
@@ -6115,6 +6148,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    firstLogin?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     blogs?: BlogUncheckedUpdateManyWithoutAuthorNestedInput

@@ -13,10 +13,13 @@ import {
   Settings,
   Menu,
   X,
-  LogOut
+  LogOut,
+  UserPlus,
+  Mail
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
+import FirstLoginModal from "@/components/FirstLoginModal";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -24,9 +27,20 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showFirstLoginModal, setShowFirstLoginModal] = useState(false);
   const pathname = usePathname();
   const { user, loading, logout } = useAuth();
   const router = useRouter();
+
+  // Show first login modal when user logs in for the first time
+  useEffect(() => {
+    if (user && user.firstLogin === true && pathname !== "/admin/login") {
+      setShowFirstLoginModal(true);
+    } else if (user && user.firstLogin === false) {
+      // Zatvaramo modal ako je korisnik promenio lozinku
+      setShowFirstLoginModal(false);
+    }
+  }, [user, pathname]);
 
   // Redirect if user is not on login page and not authenticated
   useEffect(() => {
@@ -50,6 +64,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     }
   };
 
+  // Handle first login modal close (force user back to login if they try to dismiss)
+  const handleFirstLoginModalClose = () => {
+    if (user?.firstLogin) {
+      toast.error("You must change your password before proceeding");
+      return;
+    }
+    setShowFirstLoginModal(false);
+  };
+
   // Show login page without layout if on login page
   if (pathname === "/admin/login") {
     return <>{children}</>;
@@ -65,11 +88,18 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: "Blog", href: "/admin/blog", icon: FileEdit },
     { name: "Aktivnosti", href: "/admin/activities", icon: Activity },
     { name: "Tim", href: "/admin/team", icon: Users },
+    { name: "Administratori", href: "/admin/administrators", icon: UserPlus },
     { name: "Podešavanja", href: "/admin/settings", icon: Settings },
   ];
 
   return (
     <div className="flex min-h-screen bg-gray-100">
+      {/* First Login Modal */}
+      <FirstLoginModal 
+        isOpen={showFirstLoginModal} 
+        onClose={handleFirstLoginModalClose} 
+      />
+      
       {/* Mobile sidebar toggle */}
       <div className="fixed top-0 left-0 z-40 lg:hidden p-4">
         <Button
